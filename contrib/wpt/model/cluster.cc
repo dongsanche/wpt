@@ -89,7 +89,7 @@ bool judge(vector<vector<double>>& matrix)
                 double father=matrix[i][j];
                 for(int k=j+1;k<matrix[0].size();k++)
                 {
-                    if(matrix[i][k]>0&&abs(matrix[i][k]-father)>0.0001)
+                    if(matrix[i][k]>0&&abs(matrix[i][k]-father)>0.01)
                     {
                         f=false;
                     }

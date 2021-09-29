@@ -60,4 +60,3 @@ void divide();
  
 // #ifdef __cplusplus
 // }
-#endif
