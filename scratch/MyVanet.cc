@@ -24,7 +24,7 @@
 #include "ns3/aodv-helper.h"
 #include <vector>
 #include <queue>
-#include<map>
+#include <map>
 #include <cstdlib>
 #include <ctime>
 #include "ns3/cluster.h"
@@ -92,9 +92,9 @@ void
 ChooseAnchor ()
 {
   std::vector<anchor> nodes;
-  std::vector<double> temp(nNodes);
-  m.resize(nNodes,temp);
-  double max = 800;
+  std::vector<double> temp (nNodes);
+  m.resize (nNodes, temp);
+  double max = 142;
   for (int i = 0; i < nNodes; i++)
     {
       double x, y;
@@ -103,7 +103,7 @@ ChooseAnchor ()
       anchor temp (x, y);
       nodes.push_back (temp);
     }
-//   std::cout << nodes.size ();
+  //   std::cout << nodes.size ();
   for (int i = 0; i < nodes.size (); i++)
     {
       for (int j = 0; j < nodes.size (); j++)
@@ -113,8 +113,13 @@ ChooseAnchor ()
                         max;
           m[i][j] = temp;
           m[j][i] = temp;
+          if(i==j)
+          {
+            m[i][i]=1;
+          }
         }
     }
+  Init (m);
   while (1)
     {
       MCL (m, 2, 10);
@@ -123,14 +128,14 @@ ChooseAnchor ()
           break;
         }
     }
-    for(int i=0;i<m.size();i++)
+  for (int i = 0; i < m.size (); i++)
     {
-        for(int j=0;j<m[0].size();j++)
+      for (int j = 0; j < m[0].size (); j++)
         {
-            cerr<<m[i][j]<<" ";
+          cerr << m[i][j] << " ";
         }
-        cerr<<endl;
-        // NS_LOG_UNCOND ("\n");
+      cerr << endl;
+      // NS_LOG_UNCOND ("\n");
     }
 }
 
@@ -471,7 +476,6 @@ int
 main (int argc, char *argv[])
 {
 
-
   CommandLine cmd;
   cmd.Parse (argc, argv);
 
@@ -497,8 +501,8 @@ main (int argc, char *argv[])
 
   //设置Sink的位置
   Vector ServerPos (1900, 600, 0);
-map<int,int> h;
-map<int,int> h1;
+  map<int, int> h;
+  map<int, int> h1;
   //设置节点位置
   for (int i = 0; i < nNodes; i++)
     {
@@ -507,24 +511,25 @@ map<int,int> h1;
           CreateObject<ConstantPositionMobilityModel> ();
       tempPosition->SetPosition (temp);
       Vehicles.Get (i)->AggregateObject (tempPosition);
-      h[temp.x]=temp.y;
-      h1[temp.x]=i;
+      h[temp.x] = temp.y;
+      h1[temp.x] = i;
     }
-std::ofstream fout ("scratch/a.txt", std::ios::app);
-for(int i=0;i<100;i++)
-{
-  for(int j=0;j<100;j++)
-  {
-    if(h[i]==j&&h[i]!=0)
+  std::ofstream fout ("scratch/a.txt", std::ios::app);
+  for (int i = 0; i < 100; i++)
     {
-      fout<<h1[i];
-    }else{
-      fout<<" ";
+      for (int j = 0; j < 100; j++)
+        {
+          if (h[i] == j && h[i] != 0)
+            {
+              fout << h1[i];
+            }
+          else
+            {
+              fout << " ";
+            }
+        }
+      fout << endl;
     }
-  }
-  fout<<endl;
-}
-
 
   //configure position of the server
   Ptr<ConstantPositionMobilityModel> ServerPosition =

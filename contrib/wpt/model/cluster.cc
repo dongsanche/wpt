@@ -7,6 +7,9 @@
 // using Eigen::MatrixXd;
 // using namespace Eigen;
 using namespace std;
+
+
+//MCL
 void Expansion(vector<vector<double>>& matrix,int e)
 {
     vector<vector<double>> temp=matrix;
@@ -58,7 +61,8 @@ void Inflation(vector<vector<double>>& matrix,double r)
 }
 void MCL(vector<vector<double>>& matrix,int e,int r)
 {
-    Expansion(matrix,e);
+    // Expansion(matrix,e);
+    // Expansion(matrix,e);
     Inflation(matrix,r);
 }
 void Init(vector<vector<double>>& matrix)
@@ -89,7 +93,7 @@ bool judge(vector<vector<double>>& matrix)
                 double father=matrix[i][j];
                 for(int k=j+1;k<matrix[0].size();k++)
                 {
-                    if(matrix[i][k]>0&&abs(matrix[i][k]-father)>0.01)
+                    if(matrix[i][k]>0&&abs(matrix[i][k]-father)>0.0001)
                     {
                         f=false;
                     }
@@ -121,6 +125,9 @@ void divide()
         }
     }
 }
+
+
+//
 // int main()
 // {
 //     // vector<vector<double>> m={{1,1,1,1},{1,1,0,1},{0.01,0,1,0},{1,1,0,1}};
