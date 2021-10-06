@@ -16,7 +16,6 @@
 #include "ns3/flow-monitor-helper.h"
 #include "ns3/netanim-module.h"
 #include "ns3/dsr-helper.h"
-#include "ns3/digitalMap.h"
 #include "ns3/wimax-module.h"
 #include "ns3/csma-module.h"
 #include "ns3/node-list.h"
